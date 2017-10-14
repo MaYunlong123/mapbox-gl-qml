@@ -18,7 +18,8 @@ HEADERS += \
 
 INCLUDEPATH += src/plugin
     
-LIBS += -lqmapboxgl -lz -L/opt/gcc6/lib -static-libstdc++
+#LIBS += -lqmapboxgl -lz -L/opt/gcc6/lib -static-libstdc++
+LIBS += -lqmapboxgl -lz -L/opt/gcc6/lib -Wl,-rpath=$$[QT_INSTALL_QML]/MapboxMap
 
 target.path=$$[QT_INSTALL_QML]/MapboxMap
 INSTALLS += target

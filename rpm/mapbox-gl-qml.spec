@@ -6,6 +6,11 @@ License: LGPLv3
 Group: Libraries/Geosciences
 URL: https://github.com/rinigus/mapbox-gl-qml
 
+# >> macros
+%define __provides_exclude_from ^%{_libdir}/qt5/qml/MapboxMap/.*$
+%define __requires_exclude ^libstdc.*$
+# << macros
+
 Source: %{name}-%{version}.tar.gz
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
@@ -35,6 +40,16 @@ QML plugin for Mapbox GL Native.
 %{__rm} -rf %{buildroot}
 %qmake5_install
 
+# >> install post
+
+# ship all shared libraries not allowed in Harbour with the app
+mkdir -p %{buildroot}%{_datadir}/%{name}/lib
+
+cp /opt/gcc6/lib/libstdc++.so.6.0.22 %{buildroot}%{_libdir}/qt5/qml/MapboxMap/libstdc++.so.6
+cp /opt/gcc6/lib/libgcc_s.so.1 %{buildroot}%{_libdir}/qt5/qml/MapboxMap/libgcc_s.so.1
+cp /opt/gcc6/lib/libgcc_s.so %{buildroot}%{_libdir}/qt5/qml/MapboxMap/libgcc_s.so
+# << install post
+
 %clean
 %{__rm} -rf %{buildroot}
 
@@ -46,6 +61,9 @@ QML plugin for Mapbox GL Native.
 %{_libdir}/qt5/qml/MapboxMap/libqmlmapboxglplugin.so
 %{_libdir}/qt5/qml/MapboxMap/qmldir
 %{_libdir}/qt5/qml/MapboxMap/MapboxMapGestureArea.qml
+%{_libdir}/qt5/qml/MapboxMap/libstdc++.so.6
+%{_libdir}/qt5/qml/MapboxMap/libgcc_s.so.1
+%{_libdir}/qt5/qml/MapboxMap/libgcc_s.so
 
 %changelog
 * Thu Sep 28 2017 rinigus <rinigus.git@gmail.com> - 1.0.0-1
