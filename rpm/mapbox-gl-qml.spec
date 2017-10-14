@@ -12,6 +12,7 @@ URL: https://github.com/rinigus/mapbox-gl-qml
 # << macros
 
 Source: %{name}-%{version}.tar.gz
+Source101: mapbox-gl-qml-rpmlintrc
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 
