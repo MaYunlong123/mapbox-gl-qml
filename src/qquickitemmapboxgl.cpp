@@ -843,6 +843,7 @@ QSGNode* QQuickItemMapboxGL::updatePaintNode(QSGNode *node, UpdatePaintNodeData 
       /////////////////////////////////////////////////////
       /// connect map changed signal
       connect(n->map(), &QMapboxGL::mapChanged, this, &QQuickItemMapboxGL::onMapChanged, Qt::QueuedConnection);
+      connect(n->map(), &QMapboxGL::needsRendering, this, &QQuickItemMapboxGL::update, Qt::QueuedConnection);
     }
 
   if (sz != m_last_size || m_syncState & PixelRatioNeedsSync)
@@ -968,6 +969,8 @@ QSGNode* QQuickItemMapboxGL::updatePaintNode(QSGNode *node, UpdatePaintNodeData 
       if (tracker.set_position(p, sz))
         emit locationChanged(i.key(), tracker.visible(), tracker.position());
     }
+
+  std::cout << "updatePaintNode: " << loaded << std::endl;
 
   // check if timer is needed
   if (!loaded && !m_timer.isActive())
