@@ -970,8 +970,6 @@ QSGNode* QQuickItemMapboxGL::updatePaintNode(QSGNode *node, UpdatePaintNodeData 
         emit locationChanged(i.key(), tracker.visible(), tracker.position());
     }
 
-  std::cout << "updatePaintNode: " << loaded << std::endl;
-
   // check if timer is needed
   if (!loaded && !m_timer.isActive())
     emit startRefreshTimer();
